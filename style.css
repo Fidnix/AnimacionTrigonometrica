@@ -1,0 +1,13 @@
+body{
+    padding: 0;
+    margin:0;
+}
+
+#cajita{
+    /* margin-top: 50px; */
+    margin: 50px 100px;
+    /* height: 500px;
+    width: 500px; */
+    border: 1px solid black;
+    /* border-radius: 50%; */
+}
