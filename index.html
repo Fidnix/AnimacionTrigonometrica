@@ -4,30 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto+Slab&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
     <title>Animacion</title>
-    <script defer src="js/code.js"></script>
 </head>
 <body>
 
-    <!-- Main canvas element -->
-    <canvas id="cajita" width="500" height="400">
-        <h2>Ups...Your browser doesn't support the canvas element :(</h2>
-    </canvas>
-
+    
     <!-- Data list -->
-    <p>
-        <h3>Sen: </h3>
-        <span id = "sen-span"></span>
-        <h3>Cos: </h3>
-        <span id = "cos-span"></span>
-        <h3>Tan: </h3>
-        <span id = "tan-span"></span>
-    </p>
+    <main>
+        
+        <section class = 'opciones'>
+            <ul>
+                <li>
+                    <h3>Sen: </h3>
+                    <span id = "sen-span"></span>
+                </li>
+                <li>
+                    <h3>Cos: </h3>
+                    <span id = "cos-span"></span>
+                </li>
+                <li>
+                    <h3>Tan: </h3>
+                    <span id = "tan-span"></span>
+                </li>
+            </ul>
+    
+            <!-- Color input -->
+            <input type="color" value = "#66ffff" id="color-input">
+            
+            <div class="botones">
+                <button onclick="escena.playAnims()">play</button>
+                <button onclick="escena.stopAnims()">Stop</button>
+            </div>
 
-    <!-- Color input -->
-    <input type="color" value = "#66ffff" id="color-input">
+        </section>
 
+        <section class="canvasSection">
+            <canvas id="cajita" width="500" height="400">
+                <h2>Ups...Your browser doesn't support the canvas element :(</h2>
+            </canvas>
+        </section>
+    </main>
+    
 
+    <!-- Main canvas element -->
+
+    <!-- <script src="js/animFunctions.js"></script> -->
+    <script src="js/htmlInputs.js"></script>
+    <script src="js/callable2.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/trigoPoint.js"></script>
+    <script src="js/escena.js"></script>
+    <script src="js/main.js"></script>
+    
 </body>
 </html>
