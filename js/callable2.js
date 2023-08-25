@@ -1,3 +1,10 @@
+/**
+* @author Fidel Apari Sanchez <fidel.moises0@gmail.com>
+*/
+
+/**
+* This class allows execute nested args which are another methods
+*/
 class RecursiveCallable{
     constructor(funcOwner, funcName, funcArgs = [], testable = false){
         this.owner = funcOwner;
@@ -7,6 +14,9 @@ class RecursiveCallable{
         this.evaluatedArgs = [...funcArgs];
     }
 
+    /** 
+    * Evaluate all method args (if they're functions or class methods)
+    */
     evalArgs(){
         for(let i = 0; i < this.args.length; i++){
             if(typeof this.args[i] == 'function'){
@@ -19,8 +29,11 @@ class RecursiveCallable{
         }
     }
 
+    /** 
+    * Run the current method with all its arguments
+    * @return {Whatever} It's up to the current method
+    */
     run(){
-        // console.log(tempArgs)
         this.evalArgs();
         if(this.testable){
             console.log(this.args);

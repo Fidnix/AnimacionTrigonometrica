@@ -3,57 +3,41 @@
 */
 
 /**
-* This class let us using the canvas and controllate the animations data
-* @extends None
+* This class let us execute the animation and manage what methods will display
 */
-
-class Escena{
+class Timer{
     constructor(fps){
         this.fps = fps;
         this.timeInterval = 1/this.fps;
         this.funcList = [];
-        this.bucle;
-        this.i = 0;
+        this.loop;
     }
 
     /**
-     * Adds a new animation function to the animation methods list
-     * ...
-     * It allows to controllate the animation that will be displayed
-     * @param {string} func - The animation function that will be displayed in the loop, this parameter must be a string to be callable
+     * Adds a new animation function or method to be executed for the animation
+     * @param {string} func - The animation function that will be displayed in the changeFactor, this parameter must be a string to be callable
      */
     addAnim(funcOwner, funcName, funcArgs = [], testable = false){
         this.funcList.push(new RecursiveCallable(funcOwner, funcName, funcArgs, testable));
     }
 
+    /** 
+    * Initializes the animation
+    */
     playAnims(){
-        // let i = 0;
-        // let out;
-        let tempArgs = [];
-        this.bucle = setInterval(
+        this.loop = setInterval(
             ()=>{
-                // for(let funcMatriz of this.funcList){
-                //     tempArgs = [...funcMatriz.args];
-                //     console.log(tempArgs)
-                //     for(let i = 0; i < tempArgs.length; i++){
-                //         if(typeof tempArgs[i] == 'function'){
-                //             tempArgs[i] = tempArgs[i]();
-                //         }
-                //     }
-                //     console.log(tempArgs)
-                //     funcMatriz.name.call(funcMatriz.owner, ...tempArgs)
-                // }
-                // // i+= out;
-
                 for(let recursiveCallable of this.funcList){
-                    // console.log(recursiveCallable)
-                    recursiveCallable.run()
+                    recursiveCallable.run();
                 }
             }, this.timeInterval*1000
         );
     }
 
+    /** 
+    * The name say it
+    */
     stopAnims(){
-        clearInterval( this.bucle );
+        clearInterval( this.loop );
     }
 }

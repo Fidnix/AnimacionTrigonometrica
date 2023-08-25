@@ -1,35 +1,40 @@
 /**
 * @author Fidel Apari Sanchez <fidel.moises0@gmail.com>
 */
-let Inputs = new HTMLInputs(['sen-span', 'cos-span', 'tan-span'], 'color-input');
 
-let lienzo = document.getElementById("cajita");
-let ctx = lienzo.getContext("2d");
+// Create the necessary html inputs
+let inputs = new HTMLInputs(['sen-span', 'cos-span', 'tan-span'], 'color-input');
 
-let intervalo;
+// Reference the canvas
+let canvas = document.getElementById("cajita");
+let ctx = canvas.getContext("2d");
 
-const ANCHO = lienzo.width;
-const ALTURA = lienzo.height;;
-const SEMIEJE_X = lienzo.width/2;
-const SEMIEJE_Y = lienzo.height/2;
+// Declare the constants values of the canvas dimensions
+const WIDTH = canvas.width;
+const HEIGHT = canvas.height;
+const X_AXIS = canvas.width/2;
+const Y_AXIS = canvas.height/2;
 const RADIUS = 100;
 
-let render = new Render(ANCHO, ALTURA, SEMIEJE_X, SEMIEJE_Y, RADIUS, ctx);
-let triangulos = new TrigoPoint(SEMIEJE_X, SEMIEJE_Y, 0, RADIUS);
+// These classes allow us to draw and manage animations in the scene
+let render = new Render(WIDTH, HEIGHT, X_AXIS, Y_AXIS, RADIUS, ctx);
+let timer = new Timer(60);
 
-let escena = new Escena(60);
+// The trigonometric point
+let point = new CirclePoint(X_AXIS, Y_AXIS, 0, RADIUS);
 
-let getCoordsFunc = new RecursiveCallable(triangulos, triangulos.getCoords);
-let getTrigoFunc = new RecursiveCallable(triangulos, triangulos.getTrigoCoords);
-let getColorFunc = new RecursiveCallable(Inputs, Inputs.getColor);
+// Functions to get data
+let getCoordsFunc = new RecursiveCallable(point, point.getCoords);
+let getTrigoFunc = new RecursiveCallable(point, point.getTrigoCoords);
+let getColorFunc = new RecursiveCallable(inputs, inputs.getColor);
 
-console.log('color: ' + getColorFunc.run())
+// List all methos that will be executed for the animation
+timer.addAnim( render, render.renderBG );
+timer.addAnim( render, render.setAreaColor, [getColorFunc]);
+timer.addAnim( render, render.renderTie, [getCoordsFunc] );
+timer.addAnim( render, render.renderPoint, [getCoordsFunc] );
+timer.addAnim(point, point.updateAngle);
+timer.addAnim(inputs, inputs.updateSpanValues, [getTrigoFunc]);
 
-escena.addAnim( render, render.renderBG );
-escena.addAnim( render, render.setAreaColor, [getColorFunc]);
-escena.addAnim( render, render.renderTie, [getCoordsFunc] );
-escena.addAnim( render, render.renderPoint, [getCoordsFunc] );
-escena.addAnim(triangulos, triangulos.updateAngle);
-escena.addAnim(triangulos, triangulos.upDateCoords);
-escena.addAnim(Inputs, Inputs.setValues, [getTrigoFunc]);
-escena.playAnims();
+// Plays by default
+timer.playAnims();

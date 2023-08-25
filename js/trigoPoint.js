@@ -1,49 +1,56 @@
 /**
-* Se refiere a un punto en el circulo cuya posicion se modifica por el tiempo mostrando las relaciones tringometricas que forma
+* @author Fidel Apari <fidel.moises0@gmail.com>
 */
 
-class TrigoPoint{
-    // constructor(x = 0, y = 0) {
-    //     this.x = x;
-    //     this.y = y;
-    // }
+/**
+* It's the circle point that will be displayed on the scene
+*/
+class CirclePoint{
+    constructor(centerX = 0, centerY = 0, angle = 0, radius = 10){
+        // Origin data
+        this.centerX = centerX;
+        this.centerY = centerY;
 
-    constructor(centroX = 0, centroY = 0, angulo = 0, radio = 10){
-        // Datos del entorno
-        this.centroX = centroX;
-        this.centroY = centroY;
+        // Polar coords
+        this.angle = angle;
+        this.radius = radius;
 
-        // La posicion del punto en coordenadas polares
-        this.angulo = angulo;
-        this.radio = radio;
+        // Set the cartesian coords
+        this.updateCoords();
 
-        // La posicion del punto en coordenadas cartesianas
-        this.upDateCoords();
-
-        // Constantes
-        this.factorDeCambio = 0.5;
+        // Constants
+        this.changeFactor = 0.00872665;
     }
 
-    // update(){
-    //     y = SEMIEJE_Y - ( RADIUS**2 - (x - SEMIEJE_X)**2 )**0.5;
-    //     x+=FotogramasEnX;
-    // }
-
+    /** 
+    * Change the angle by the change factor
+    */
     updateAngle(){
-        this.angulo += 0.00872665;
+        this.angle += this.changeFactor;
+        this.updateCoords();
     }
 
-    upDateCoords(){
-        this.x = this.radio * Math.cos(this.angulo) + this.centroX;
-        this.y = - this.radio * Math.sin(this.angulo) + this.centroY;
+    /** 
+    * Update the cartesian coords
+    */    
+    updateCoords(){
+        this.x = this.radius * Math.cos(this.angle) + this.centerX;
+        this.y = - this.radius * Math.sin(this.angle) + this.centerY;
     }
 
+    /** 
+    * Return the cartesian coords
+    * @return {Array[float]} It's an array (tuple) that refers to the current cartesian coords
+    */
     getCoords(){
-        // console.log('sad')
         return [this.x, this.y];
     }
 
+    /** 
+    * Returns an array with the trigonometric values of the point
+    * @return {Array[float]} An array with the sin, cos and tan (respectivly)
+    */
     getTrigoCoords(){
-        return [Math.sin(this.angulo), Math.cos(this.angulo), Math.tan(this.angulo)];
+        return [Math.sin(this.angle), Math.cos(this.angle), Math.tan(this.angle)];
     }
 }
